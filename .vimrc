@@ -6,9 +6,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-
-colo gruvbox
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -133,6 +130,13 @@ nnoremap x "_x
 " Turn on persistent undoes in Vim and specify where those files are saved
 set undofile
 set undodir=~/.vim/undodir
+
+" Set colorscheme to gruvbox and make sure it's the dark alternative
+colo gruvbox
+set background=dark
+
+" Make it so that searches ("/") do not automatically open folds
+set fdo-=search
 
 " Make tabs be 2 spaces wide when editing javascript
 autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2
