@@ -10,5 +10,6 @@ WantedBy=multi-user.target
 ExecStart=/usr/bin/Xvfb :0.0
 Restart=always" > /etc/systemd/system/xvfb.service
 
+sudo apt --yes install xvfb
 sudo systemctl enable xvfb.service
 sudo systemctl start xvfb.service
