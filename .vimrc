@@ -15,6 +15,9 @@ Plugin 'VundleVim/Vundle.vim'
 " time you hit backspace)
 " Plugin 'raimondi/delimitmate'
 
+" Gruvbox color scheme
+Plugin 'morhetz/gruvbox'
+
 " Color scheme for plugins goyo and limelight
 Plugin 'https://github.com/junegunn/seoul256.vim'
 
@@ -30,6 +33,10 @@ Plugin 'pangloss/vim-javascript'
 
 " For highlighting and indentation in JSX (depends on the plugin above!)
 Plugin 'mxw/vim-jsx'
+
+" I wrote lots of Python code w/o running it and this seems like a 
+" faster way of finding bugs.
+"Plugin 'w0rp/ale'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -132,7 +139,7 @@ set undofile
 set undodir=~/.vim/undodir
 
 " Set colorscheme to gruvbox and make sure it's the dark alternative
-colo gruvbox
+silent! colo gruvbox
 set background=dark
 
 " Make it so that searches ("/") do not automatically open folds
