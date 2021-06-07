@@ -34,13 +34,6 @@ Plugin 'pangloss/vim-javascript'
 " For highlighting and indentation in JSX (depends on the plugin above!)
 Plugin 'mxw/vim-jsx'
 
-" Apparently, to enable syntax highlighting for .tsx files, I need to download
-" a typescript syntax highlighter first.
-Plugin 'leafgarland/typescript-vim'
-
-" And then, I need to add this:
-Plugin 'peitalin/vim-jsx-typescript'
-
 " I wrote lots of Python code w/o running it and this seems like a 
 " faster way of finding bugs.
 "Plugin 'w0rp/ale'
@@ -99,6 +92,10 @@ map k gk
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <C-i> :nohl<CR>
 
+" <S-j> and <S-k> scroll down and up, respectively
+nnoremap <S-j> <C-e>
+nnoremap <S-k> <C-y>
+
 " Move one space to the left (for escaping parenthesis)
 inoremap <C-e> <C-o>l
 
@@ -141,6 +138,10 @@ set display+=lastline
 " Makes it so that "x" in normal mode does not copy the character it deletes
 nnoremap x "_x
 
+" Turn on persistent undoes in Vim and specify where those files are saved
+set undofile
+set undodir=~/.vim/undodir
+
 " Set colorscheme to gruvbox and make sure it's the dark alternative
 silent! colo gruvbox
 set background=dark
@@ -148,40 +149,24 @@ set background=dark
 " Make it so that searches ("/") do not automatically open folds
 set fdo-=search
 
+" Highlight 80th char of each line
+set colorcolumn=80
+
 " Make tabs be 2 spaces wide when editing javascript
-" You can use `set filetype?` while editing a file to see the
-" type that it detected
+autocmd Filetype ocaml setlocal tabstop=2 shiftwidth=2
+autocmd Filetype c setlocal tabstop=2 shiftwidth=2
 autocmd Filetype javascript setlocal tabstop=2 shiftwidth=2
 autocmd Filetype css setlocal tabstop=2 shiftwidth=2
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2
 autocmd Filetype java setlocal tabstop=2 shiftwidth=2
-autocmd Filetype typescript.tsx setlocal tabstop=2 shiftwidth=2
 
-" This is for saving and loading Vim folds. These views are saved to
-" .vim/views and are NOT automatically deleted when you delete a text file
-" that contained folds.
-" DISABLED FOR NOW ON MAC
-"augroup AutoSaveFolds
-	"autocmd!
-	"autocmd BufWinLeave * mkview
-	"autocmd BufWinEnter * silent loadview
-"augroup END
-
-" Code to enable persistent
-" guard for distributions lacking the persistent_undo feature.
-if has('persistent_undo')
-    " define a path to store persistent_undo files.
-    let target_path = expand('~/.vim/undodir/')
-
-    " create the directory and any parent directories
-    " if the location does not exist.
-    if !isdirectory(target_path)
-        call system('mkdir -p ' . target_path)
-    endif
-
-    " point Vim to the defined undo directory.
-    let &undodir = target_path
-
-    " finally, enable undo persistence.
-    set undofile
-endif
+"This is for saving and loading Vim folds. These views are saved to
+".vim/views and are NOT automatically deleted when you delete a text file
+"that contained folds.
+" ?* is for matching all nonempty names (I.e. so that doing `vi` without
+" any arguments does not cause either autocommand to run).
+set viewoptions-=options
+augroup AutoSaveFolds
+	autocmd BufWinLeave ?* mkview
+	autocmd BufWinEnter ?* silent loadview
+augroup END
